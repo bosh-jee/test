@@ -14,7 +14,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     auth = request.authorization
-    if not auth or auth.password != "JeezLovesAll":
+    if not auth or auth.password != "test":
         return "Unauthorized", 401
     return "Welcome to your private tool!"
 
