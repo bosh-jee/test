@@ -32,7 +32,8 @@ def scrape_prices():
     COMPETITOR_COLS = {
         1: ('B', 'C'),  # URL1/Price1
         2: ('D', 'E'),  # URL2/Price2
-        3: ('F', 'G')  # URL3/Price3
+        3: ('F', 'G'),  # URL3/Price3
+        4: ('H', 'I')
     }
 
     COMPETITOR_SELECTORS = {
