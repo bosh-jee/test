@@ -39,6 +39,7 @@ def scrape_prices():
         "alfrensia.com": "p.price bdi",
         "sigma-computer.com": "span.price-new",
         "elbadrgroupeg.store": "div.product-price"
+        "ram-technology.com": "div.current-price"
     }
                #loop for compatitors
     for comp_num, (url_col, price_col) in COMPETITOR_COLS.items():
