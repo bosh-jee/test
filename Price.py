@@ -39,7 +39,7 @@ def scrape_prices():
     COMPETITOR_SELECTORS = {
         "alfrensia.com": "p.price bdi",
         "sigma-computer.com": "span.price-new",
-        "elbadrgroupeg.store": "div.product-price"
+        "elbadrgroupeg.store": ["div.product-price", "div.product-price-new"],
         "ram-technology.com": "div.current-price"
     }
                #loop for compatitors
@@ -55,12 +55,20 @@ def scrape_prices():
             try:
                 driver.get(url)
                 price = "Not found"
-                for domain, selector in COMPETITOR_SELECTORS.items():
-                    if domain in url:
-                        price_element = WebDriverWait(driver, 10).until(
-                            EC.visibility_of_element_located((By.CSS_SELECTOR, selector)))
-                        price = price_element.text.split()[0]
-                        break
+                for domain, selectors in COMPETITOR_SELECTORS.items():
+                     if domain in url:
+                        # Convert single selector to list for uniform handling
+                        selector_list = [selectors] if isinstance(selectors, str) else selectors
+
+                        for selector in selector_list:
+                            try:
+                                price_element = WebDriverWait(driver, 10).until(  # Shorter timeout for fallback
+                                    EC.visibility_of_element_located((By.CSS_SELECTOR, selector)))
+                                price = price_element.text.split()[0]
+                                break  # Use first successful match
+                            except:
+                                continue  # Try next selector if current fails
+                    break  # Exit domain loop if price found
 
                 prices[index] = price  # Place price at correct index
 
